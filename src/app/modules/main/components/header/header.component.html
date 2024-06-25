@@ -1,0 +1,42 @@
+<!-- Image and text -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark bg-gradient">
+  <div class="container-fluid">
+
+    <a class="navbar-brand" routerLink="">
+      <img src="../../../../../assets/Logos/LOGOOOO.png" alt="" width="150" class="d-inline-block">
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fa-solid fa-bars" style="color: #ffffff;"></i>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav ms-auto">
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="dashboard" *ngIf="loggedin">Dashboard</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="home">Home</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="about">About</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="contact-us">Contact</a>
+        </li>
+
+      </ul>
+
+      <ul class="navbar-nav ms-auto">
+        <button class="btn btn-warning" (click)="signin_clicked()" *ngIf="!loggedin">Signin</button> &nbsp;
+        <button class="btn btn-outline-warning" (click)="signOut_clicked()" *ngIf="loggedin">Sign out</button> &nbsp;
+      </ul>
+    </div>
+
+  </div>
+</nav>

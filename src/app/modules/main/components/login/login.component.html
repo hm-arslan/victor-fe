@@ -1,0 +1,32 @@
+<div class="container shadow-lg">
+    <h2>Login!</h2>
+    <mat-divider></mat-divider>
+    <form [formGroup]="loginForm">
+
+        <div class="form-row">
+            <div class="mb-3">
+                <label for="username">Username</label>
+                <input formControlName="username" id="username" type="text" class="form-control" ng
+                    placeholder="username" required [ngClass]="{ 
+                         'is-invalid': loginForm.get('username')?.touched && loginForm.get('username')?.invalid,
+                         'is-valid': loginForm.get('username')?.touched && loginForm.get('username')?.valid }">
+                <div class="invalid-feedback">
+                    *email required.
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="mb-3">
+                <label for="password">Password</label>
+                <input formControlName="password" id="password" type="password" class="form-control" ng
+                    placeholder="Password" required [ngClass]="{ 
+                         'is-invalid': loginForm.get('password')?.touched && loginForm.get('password')?.invalid,
+                         'is-valid': loginForm.get('password')?.touched && loginForm.get('password')?.valid }">
+                <div class="invalid-feedback">
+                    *Password required.
+                </div>
+            </div>
+        </div>
+    </form>
+    <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid" (click)="submit()">Login</button>
+</div>

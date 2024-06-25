@@ -1,0 +1,21 @@
+.container {
+    margin: 0 auto;
+    h2 {
+        border-left: 5px solid #19235c;
+        padding-left: 10px;
+        color: #19235c;
+    }
+    table {
+        width: 80% !important;
+        margin: 0 auto;
+    
+        // border-collapse: collapse;
+        td {
+            max-height: 5px;
+            /* Allow row height to fit content */
+            align-content: center;
+        }
+    }
+    /* This will center the container horizontally */
+}
+
