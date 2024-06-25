@@ -1,0 +1,27 @@
+mat-horizontal-stepper {
+    // background-color: #19235c;
+    // background-image: linear-gradient(#212641, #19235c) !important;
+    border-radius: 15px;
+    color: #212641;
+    border: 1px solid #212641;
+    background-color: transparent;
+
+    // ::ng-deep .mat-step-header .mat-step-label {
+    //     color: #212641 !important;
+    // }
+
+    // ::ng-deep .mat-step-header .mat-step-icon {
+    //     color: #212641;
+    //     /* Change to the color you desire */
+    // }
+}
+
+h2 {
+    border-left: 5px solid #19235c;
+    padding-left: 10px;
+    color: #19235c;
+}
+
+.mat-form-field.error .mat-form-field-wrapper {
+    border: 2px solid red !important;
+  }

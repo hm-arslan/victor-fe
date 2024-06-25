@@ -1,0 +1,43 @@
+<div class="container">
+  <mat-form-field appearance="fill" class="w-75">
+    <mat-label>Select a File Name</mat-label>
+    <mat-select [(ngModel)]="selectedStatistic" required>
+      <mat-option value="Rotator Cuff Pathologies">Rotator Cuff Pathologies</mat-option>
+      <mat-option value="Prevalence of Neer Three- or Four-part Proximal Humeral Fracture by Age & Sex">Prevalence of
+        Neer Three- or Four-part Proximal Humeral Fracture by Age & Sex</mat-option>
+      <mat-option value="Anatomic Total Shoulder Arthroplasty by Indication">Anatomic Total Shoulder Arthroplasty by
+        Indication</mat-option>
+      <mat-option value="Shoulder Arthroplasty by Complication">Shoulder Arthroplasty by Complication</mat-option>
+      <mat-option value="Shoulder Arthroplasty Revision Rate by Sex">Shoulder Arthroplasty Revision Rate by
+        Sex</mat-option>
+      <mat-option value="Shoulder Arthroplasty Revision Rate by Age">Shoulder Arthroplasty Revision Rate by
+        Age</mat-option>
+      <mat-option value="Shoulder Arthroplasty by Sex">Shoulder Arthroplasty by Sex</mat-option>
+      <mat-option value="Shoulder Arthroplasty by Age">Shoulder Arthroplasty by Age</mat-option>
+      <mat-option value="Reverse Total Shoulder Arthroplasty by Indication">Reverse Total Shoulder Arthroplasty by
+        Indication</mat-option>
+      <mat-option value="Hemiarthroplasty by Age & Sex">Hemiarthroplasty by Age & Sex</mat-option>
+      <mat-option value="Anatomic Total Shoulder Arthroplasty by Age & Sex">Anatomic Total Shoulder Arthroplasty by Age
+        & Sex</mat-option>
+      <mat-option value="Reverse Total Shoulder Arthroplasty by Age & Sex">Reverse Total Shoulder Arthroplasty by Age &
+        Sex</mat-option>
+      <mat-option
+        value="Prevalence of patients with Rotator cuff pathology with ≥ 1 comorbiditie by Age & Sex">Prevalence of
+        patients with Rotator cuff pathology with ≥ 1 comorbiditie by Age & Sex</mat-option>
+      <mat-option value="Hemiarthroplasty by Indication">Hemiarthroplasty by Indication</mat-option>
+      <mat-option value="Frequency of Prosthesis Company by Age">Frequency of Prosthesis Company by Age</mat-option>
+      <mat-option value="Frequency of Prosthesis Company by Indication">Frequency of Prosthesis Company by
+        Indication</mat-option>
+      <mat-option value="Revision Rates of Prosthesis Company">Revision Rates of Prosthesis Company</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <input class="form-control w-50" type="file" id="formFile" accept=".csv" (change)="onFileSelected($event)" required>
+  <div class="invalid-feedback">
+    Please choose a CSV file.
+  </div>
+
+
+  <button class="btn btn-primary mt-4 w-25" (click)="onSubmit()">Upload</button>
+
+</div>
