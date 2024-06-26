@@ -38,7 +38,11 @@ jobs:
       uses: webfactory/ssh-agent@v0.5.3
       with:
         ssh-private-key: ${{ secrets.CONTABO_SSH_PRIVATE_KEY }}
-        known-hosts: ${{ secrets.CONTABO_KNOWN_HOSTS }}
+    
+    - name: Add Known Hosts
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.CONTABO_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
 
     - name: Deploy to Server
       run: |
