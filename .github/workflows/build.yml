@@ -20,7 +20,7 @@ jobs:
         node-version: '18.x'
 
     - name: Install Angular CLI
-      run: npm install -g @angular/cli
+      run: npm install -g @angular/cli@16
 
     - name: Install Dependencies
       run: npm install
