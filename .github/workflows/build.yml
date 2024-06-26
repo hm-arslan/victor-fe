@@ -33,3 +33,13 @@ jobs:
       with:
         name: build-files
         path: dist/
+
+    - name: Setup SSH
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ secrets.CONTABO_SSH_PRIVATE_KEY }}
+
+    - name: Deploy to Server
+      run: |
+        scp -r dist/* ${{ secrets.CONTABO_SERVER_USERNAME }}@${{ secrets.CONTABO_SERVER_HOST }}:${{ secrets.CONTABO_DEPLOY_PATH }}
+
