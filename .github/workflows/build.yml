@@ -19,12 +19,15 @@ jobs:
       with:
         node-version: '18.x'
 
+    - name: Install Angular CLI
+      run: npm install -g @angular/cli
+
     - name: Install Dependencies
       run: npm install
-
+      
     - name: Build AngularJS Project
       run: npm run build
-
+      
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v3
       with:
