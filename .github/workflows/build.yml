@@ -33,18 +33,27 @@ jobs:
       with:
         name: build-files
         path: dist/
-
-    - name: Setup SSH
-      uses: webfactory/ssh-agent@v0.5.3
+        
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@v1.0.3
       with:
-        ssh-private-key: ${{ secrets.CONTABO_SSH_PRIVATE_KEY }}
-    
-    - name: Add Known Hosts
-      run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.CONTABO_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
+        host: ${{ secrets.CONTABO_SERVER_HOST }}
+        username: ${{ secrets.CONTABO_SERVER_USERNAME }}
+        key: ${{ secrets.CONTABO_SSH_PRIVATE_KEY }}
+        port: ${{ secrets.CONTABO_SERVER_PORT }}
+        script: whoami
 
-    - name: Deploy to Server
-      run: |
-        scp -r dist/* ${{ secrets.CONTABO_SERVER_USERNAME }}@${{ secrets.CONTABO_SERVER_HOST }}:${{ secrets.CONTABO_DEPLOY_PATH }}
+    # - name: Setup SSH
+    #   uses: webfactory/ssh-agent@v0.5.3
+    #   with:
+    #     ssh-private-key: ${{ secrets.CONTABO_SSH_PRIVATE_KEY }}
+    
+    # - name: Add Known Hosts
+    #   run: |
+    #     mkdir -p ~/.ssh
+    #     echo "${{ secrets.CONTABO_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
+
+    # - name: Deploy to Server
+    #   run: |
+    #     scp -r dist/* ${{ secrets.CONTABO_SERVER_USERNAME }}@${{ secrets.CONTABO_SERVER_HOST }}:${{ secrets.CONTABO_DEPLOY_PATH }}
 
