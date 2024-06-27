@@ -34,14 +34,14 @@ jobs:
         name: build-files
         path: dist/
         
-    - name: executing remote ssh commands using password
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: ${{ secrets.CONTABO_SERVER_HOST }}
-        username: ${{ secrets.CONTABO_SERVER_USERNAME }}
-        key: ${{ secrets.CONTABO_SSH_PRIVATE_KEY }}
-        port: ${{ secrets.CONTABO_SERVER_PORT }}
-        script: whoami
+    # - name: executing remote ssh commands using password
+    #   uses: appleboy/ssh-action@v1.0.3
+    #   with:
+    #     host: ${{ secrets.CONTABO_SERVER_HOST }}
+    #     username: ${{ secrets.CONTABO_SERVER_USERNAME }}
+    #     key: ${{ secrets.CONTABO_SSH_PRIVATE_KEY }}
+    #     port: ${{ secrets.CONTABO_SERVER_PORT }}
+    #     script: whoami
 
     # - name: Setup SSH
     #   uses: webfactory/ssh-agent@v0.5.3
