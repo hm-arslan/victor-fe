@@ -31,6 +31,7 @@ export class HomeComponent implements AfterViewInit {
   @ViewChild('get_shoulder_arthoplasty_revision_rate_by_sex') get_shoulder_arthoplasty_revision_rate_by_sex: any;
 
   @ViewChild('get_hemiarthroplasty_by_age_and_sex') get_hemiarthroplasty_by_age_and_sex: any;
+  @ViewChild('get_hemiarthroplasty_by_indication') get_hemiarthroplasty_by_indication: any;
   @ViewChild('get_anatomic_total_shoulder_arthroplasty_by_age_and_sex') get_anatomic_total_shoulder_arthroplasty_by_age_and_sex: any;
   @ViewChild('get_reverse_total_shoulder_arthroplasty_by_age_and_sex') get_reverse_total_shoulder_arthroplasty_by_age_and_sex: any;
 
@@ -409,6 +410,97 @@ export class HomeComponent implements AfterViewInit {
                 barThickness: 20 // Change the value according to your preference
               }
             },
+          },
+          // plugins: [ChartDataLabels]
+        });
+      },
+      err => {
+        console.error('Error fetching data:', err);
+      }
+    );
+    //#endregion
+
+    //#region 4.1.	get_hemiarthroplasty_by_indication
+    this._getService.getRequest('data/get_hemiarthroplasty_by_indication').subscribe(
+      res => {
+
+        const data = res.map((item: any) => item.total_number);
+        const labels = res.map((item: any) => item.indication__indication);
+
+        // Create the bar chart
+        new Chart(this.get_hemiarthroplasty_by_indication.nativeElement.getContext('2d'), {
+          type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [{
+              // label: 'Anatomic Total Shoulder Arthroplasty by Indication Number',
+              data: data,
+              backgroundColor: '#4A90E2'
+            }]
+          },
+          options: {
+            responsive: true,
+            scales: {
+              x: {
+                title: {
+                  display: true,
+                  text: 'Indication',
+                  color: '#fff',
+                  font: {
+                    size: 16,
+                    weight: 600
+                  }
+                },
+                beginAtZero: true,
+                ticks: {
+                  color: '#fff' // Tick color for x-axis
+                },
+              },
+              y: {
+                title: {
+                  display: true,
+                  text: 'Count',
+                  color: '#fff',
+                  font: {
+                    size: 16,
+                    weight: 600
+                  }
+                },
+                beginAtZero: true,
+                ticks: {
+                  color: '#fff' // Tick color for y-axis
+                },
+              }
+            },
+            plugins: {
+              legend: {
+                display: false,
+                labels: {
+                  color: '#fff' // Legend text color
+                }
+              },
+              title: {
+                display: true,
+                text: 'Hemiarthroplasty by Indication',
+                color: '#fff'
+              },
+              datalabels: {
+                formatter: (value: number, context: any) => {
+                  return value; // Display the value directly on the bar
+                },
+                color: '#fff',
+                anchor: 'end',
+                align: 'end',
+                font: {
+                  size: 8,
+                }
+              },
+            },
+            datasets: {
+              bar: {
+                barThickness: 20 // Change the value according to your preference
+              }
+            }
           },
           // plugins: [ChartDataLabels]
         });
