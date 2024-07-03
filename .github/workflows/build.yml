@@ -44,6 +44,17 @@ jobs:
       with:
         name: build-files
         path: dist/
+    
+    - name: Add SSH Key and Fetch Host Key
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.CONTABO_SSH_PRIVATE_KEY }}
+        SSH_HOST: ${{ secrets.CONTABO_SERVER_HOST }}
+      run: |
+        mkdir -p ~/.ssh
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
+        chmod 644 ~/.ssh/known_hosts
 
     - name: Deploy to Server
       env:
