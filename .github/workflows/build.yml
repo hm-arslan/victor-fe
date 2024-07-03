@@ -34,25 +34,25 @@ jobs:
         name: build-files
         path: dist/
         
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build  # Ensure this job runs after the build job
+  # deploy:
+  #   runs-on: ubuntu-latest
+  #   needs: build  # Ensure this job runs after the build job
 
-    steps:
-    - name: Download Build Artifacts
-      uses: actions/download-artifact@v3
-      with:
-        name: build-files
-        path: dist/
+  #   steps:
+  #   - name: Download Build Artifacts
+  #     uses: actions/download-artifact@v3
+  #     with:
+  #       name: build-files
+  #       path: dist/
 
-    - name: Deploy to Server
-          uses: webfactory/ssh-agent@v0.5.4
-          with:
-            ssh-private-key: ${{ secrets.CONTABO_SSH_PRIVATE_KEY }}
-            ssh-known-hosts: ${{ secrets.CONTABO_SERVER_HOST }}
-            ssh-strict: true
-            script: |
-              scp -r dist/* $CONTABO_SSH_USERNAME@$CONTABO_SSH_HOST:$CONTABO_DEPLOY_PATH
+  #   - name: Deploy to Server
+  #         uses: webfactory/ssh-agent@v0.5.4
+  #         with:
+  #           ssh-private-key: ${{ secrets.CONTABO_SSH_PRIVATE_KEY }}
+  #           ssh-known-hosts: ${{ secrets.CONTABO_SERVER_HOST }}
+  #           ssh-strict: true
+  #           script: |
+  #             scp -r dist/* $CONTABO_SSH_USERNAME@$CONTABO_SSH_HOST:$CONTABO_DEPLOY_PATH
     
     # - name: Add SSH Key and Fetch Host Key
     #   env:
