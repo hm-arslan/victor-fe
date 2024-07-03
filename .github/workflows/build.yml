@@ -44,30 +44,41 @@ jobs:
       with:
         name: build-files
         path: dist/
+
+    - name: install ssh keys
+      # check this thread to understand why its needed:
+      # https://stackoverflow.com/a/70447517
+      run: |
+        install -m 600 -D /dev/null ~/.ssh/id_rsa
+        echo "${{ secrets.CONTABO_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        ssh-keyscan -H ${{ secrets.CONTABO_SERVER_HOST }} > ~/.ssh/known_hosts
+
+    - name: connect and pull
+      run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
     
-    - name: Add SSH Key and Fetch Host Key
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.CONTABO_SSH_PRIVATE_KEY }}
-        SSH_HOST: ${{ secrets.CONTABO_SERVER_HOST }}
-      run: |
-        mkdir -p ~/.ssh
-        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
-        chmod 644 ~/.ssh/known_hosts
+    # - name: Add SSH Key and Fetch Host Key
+    #   env:
+    #     SSH_PRIVATE_KEY: ${{ secrets.CONTABO_SSH_PRIVATE_KEY }}
+    #     SSH_HOST: ${{ secrets.CONTABO_SERVER_HOST }}
+    #   run: |
+    #     mkdir -p ~/.ssh
+    #     echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+    #     chmod 600 ~/.ssh/id_rsa
+    #     ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
+    #     chmod 644 ~/.ssh/known_hosts
 
-    - name: Start SSH Agent and Add Key
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.CONTABO_SSH_PRIVATE_KEY }}
-      run: |
-        eval $(ssh-agent -s)
-        ssh-add ~/.ssh/id_rsa
+    # - name: Start SSH Agent and Add Key
+    #   env:
+    #     SSH_PRIVATE_KEY: ${{ secrets.CONTABO_SSH_PRIVATE_KEY }}
+    #   run: |
+    #     eval $(ssh-agent -s)
+    #     ssh-add ~/.ssh/id_rsa
 
-    - name: Deploy to Server
-      env:
-        SSH_HOST: ${{ secrets.CONTABO_SERVER_HOST }}
-        SSH_USERNAME: ${{ secrets.CONTABO_SERVER_USERNAME }}
-        REMOTE_PATH: ${{ secrets.CONTABO_DEPLOY_PATH }}
-      run: |
-        scp -r dist/* $SSH_USERNAME@$SSH_HOST:$REMOTE_PATH
+    # - name: Deploy to Server
+    #   env:
+    #     SSH_HOST: ${{ secrets.CONTABO_SERVER_HOST }}
+    #     SSH_USERNAME: ${{ secrets.CONTABO_SERVER_USERNAME }}
+    #     REMOTE_PATH: ${{ secrets.CONTABO_DEPLOY_PATH }}
+    #   run: |
+    #     scp -r dist/* $SSH_USERNAME@$SSH_HOST:$REMOTE_PATH
 
