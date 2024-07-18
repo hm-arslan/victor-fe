@@ -425,7 +425,23 @@ export class HomeComponent implements AfterViewInit {
       res => {
 
         const data = res.map((item: any) => item.total_number);
-        const labels = res.map((item: any) => item.indication__indication);
+        // const labels = res.map((item: any) => item.indication__indication);
+        const labels = res.map((item: any) => wrapLabel(item.indication__indication, 10));
+
+        function wrapLabel(label: string, maxLineLength: number): string {
+          const words = label.split(' ');
+          let wrappedLabel = '';
+          let line = '';
+          for (const word of words) {
+            if (line.length + word.length > maxLineLength) {
+              wrappedLabel += line + '\n';
+              line = '';
+            }
+            line += word + ' ';
+          }
+          wrappedLabel += line.trim();
+          return wrappedLabel;
+        }
 
         // Create the bar chart
         new Chart(this.get_hemiarthroplasty_by_indication.nativeElement.getContext('2d'), {
@@ -453,7 +469,26 @@ export class HomeComponent implements AfterViewInit {
                 },
                 beginAtZero: true,
                 ticks: {
-                  color: '#fff' // Tick color for x-axis
+                  color: '#fff', // Tick color for x-axis
+
+                  // callback: function(value) {
+                  //   // Split the label by space to wrap it
+                  //   const label = String(value);
+                  //   const words = label.split(' ');
+                  //   const maxLineLength = 10; // Adjust this value as needed
+                  //   let wrappedLabel = '';
+                  //   let line = '';
+                  //   for (const word of words) {
+                  //     if (line.length + word.length > maxLineLength) {
+                  //       wrappedLabel += line + '\n';
+                  //       line = '';
+                  //     }
+                  //     line += word + ' ';
+                  //   }
+                  //   wrappedLabel += line.trim();
+                  //   return wrappedLabel;
+                  // }
+
                 },
               },
               y: {
@@ -1526,7 +1561,7 @@ export class HomeComponent implements AfterViewInit {
               },
               title: {
                 display: true,
-                text: 'Prosthesis Company Frequency by Age Group',
+                text: 'Prosthesis Companies: Fx solution and Enovis (DJO) Frequency by Age Group',
                 color: '#fff'
               }
             },
@@ -1616,7 +1651,7 @@ export class HomeComponent implements AfterViewInit {
               },
               title: {
                 display: true,
-                text: 'Prosthesis Company Frequency by Indication',
+                text: 'Prosthesis Companies: Fx solution and Enovis (DJO) Frequency by Indication',
                 color: '#fff'
               },
               // datalabels: {
@@ -1726,7 +1761,7 @@ export class HomeComponent implements AfterViewInit {
               },
               title: {
                 display: true,
-                text: 'Revision Rate of Prosthesis Company by Indication',
+                text: 'Revision Rate of Prosthesis Companies: Fx solution and Enovis (DJO) by Indication',
                 color: '#fff'
               },
             },
