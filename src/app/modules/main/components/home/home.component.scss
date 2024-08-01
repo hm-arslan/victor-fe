@@ -18,3 +18,12 @@
 .row{
     justify-content: center;
 }
+
+.chart-container{
+    width: 100%;
+    overflow-x: auto;
+
+    canvas {
+        min-width: 600px; /* Ensures the canvas has a minimum width */
+    }
+}

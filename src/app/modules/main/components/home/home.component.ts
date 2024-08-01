@@ -426,7 +426,22 @@ export class HomeComponent implements AfterViewInit {
 
         const data = res.map((item: any) => item.total_number);
         // const labels = res.map((item: any) => item.indication__indication);
-        const labels = res.map((item: any) => wrapLabel(item.indication__indication, 10));
+        const labels = res.map((item: any) => wrapLabel(replaceLabel(item.indication__indication), 10));
+
+        function replaceLabel(label: string): string {
+          switch (label) {
+            case 'Three- or Four-part PHF':
+              return 'Three-/Four-part PHF';
+            case 'Avascular Necrosis without glenoid involvement':
+              return 'Necrosis w/o glenoid involvement';
+            case 'Osteoarthritis of Humeral Head with preserved glenoid surface':
+              return 'OA of HH with preserved glenoid';
+            case 'Osteoarthritis with poor glenoid bone stock':
+              return 'OA with poor glenoid';
+            default:
+              return label;
+          }
+        }
 
         function wrapLabel(label: string, maxLineLength: number): string {
           const words = label.split(' ');
@@ -469,25 +484,9 @@ export class HomeComponent implements AfterViewInit {
                 },
                 beginAtZero: true,
                 ticks: {
-                  color: '#fff', // Tick color for x-axis
-
-                  // callback: function(value) {
-                  //   // Split the label by space to wrap it
-                  //   const label = String(value);
-                  //   const words = label.split(' ');
-                  //   const maxLineLength = 10; // Adjust this value as needed
-                  //   let wrappedLabel = '';
-                  //   let line = '';
-                  //   for (const word of words) {
-                  //     if (line.length + word.length > maxLineLength) {
-                  //       wrappedLabel += line + '\n';
-                  //       line = '';
-                  //     }
-                  //     line += word + ' ';
-                  //   }
-                  //   wrappedLabel += line.trim();
-                  //   return wrappedLabel;
-                  // }
+                  color: '#fff', 
+                  // maxRotation: 90, // Prevent automatic rotation
+                  minRotation: 50,
 
                 },
               },
@@ -1377,6 +1376,10 @@ export class HomeComponent implements AfterViewInit {
 
         const labels = res.map((item: any) => item.complication__complication);
 
+        function getBarThickness() {
+          return window.innerWidth < 1000 ? 10 : 20;
+        }
+
         new Chart(this.get_shoulder_arthroplasty_by_complication.nativeElement.getContext('2d'), {
           type: 'bar',
           data: {
@@ -1398,7 +1401,8 @@ export class HomeComponent implements AfterViewInit {
                 },
                 beginAtZero: true,
                 ticks: {
-                  color: '#fff' // Tick color for x-axis
+                  color: '#fff', // Tick color for x-axis
+                  // minRotation: 90,
                 },
               },
               y: {
@@ -1443,7 +1447,7 @@ export class HomeComponent implements AfterViewInit {
             },
             datasets: {
               bar: {
-                barThickness: 20 // Change the value according to your preference
+                barThickness: getBarThickness() // Change the value according to your preference
               }
             }
           },
@@ -1510,12 +1514,24 @@ export class HomeComponent implements AfterViewInit {
           backgroundColor: '#f5f384', 
           borderWidth: 1
         };
+        const fxSolution = {
+          label: 'Fx Solution',
+          data: data.map((item: any) => item.total_fx_soltuion),
+          backgroundColor: '#ef5350', 
+          borderWidth: 1
+        };
+        const enovisDJO = {
+          label: 'Enovis DJO',
+          data: data.map((item: any) => item.total_enovis_djo),
+          backgroundColor: '#26c6da', 
+          borderWidth: 1
+        };
 
         new Chart(this.get_prosthesis_company_frequency_by_age_group.nativeElement.getContext('2d'), {
           type: 'bar',
           data: {
             labels: labels,
-            datasets: [arthrexData, depuySynthesData, smithNephewData, strykerData, zimmerBiometData, exactechData, limaData]
+            datasets: [arthrexData, depuySynthesData, smithNephewData, strykerData, zimmerBiometData, exactechData, limaData, fxSolution, enovisDJO]
           },
           options: {
             responsive: true,
@@ -1561,7 +1577,7 @@ export class HomeComponent implements AfterViewInit {
               },
               title: {
                 display: true,
-                text: 'Prosthesis Companies: Fx solution and Enovis (DJO) Frequency by Age Group',
+                text: 'Prosthesis Company Frequency by Age Group',
                 color: '#fff'
               }
             },
@@ -1651,7 +1667,7 @@ export class HomeComponent implements AfterViewInit {
               },
               title: {
                 display: true,
-                text: 'Prosthesis Companies: Fx solution and Enovis (DJO) Frequency by Indication',
+                text: 'Prosthesis Company Frequency by Indication',
                 color: '#fff'
               },
               // datalabels: {
@@ -1702,6 +1718,8 @@ export class HomeComponent implements AfterViewInit {
         const zimmerBiometData = data.map((item: any) => item.total_zimmer_biomet);
         const exactechData = data.map((item: any) => item.total_exacthech);
         const limaData = data.map((item: any) => item.total_lima);
+        const fxSolution = data.map((item: any) => item.total_fx_solution);
+        const enovisDJO = data.map((item: any) => item.total_enovis_djo);
 
         new Chart(this.get_revision_rates_of_prosthesis_company_by_indication.nativeElement.getContext('2d'), {
           type: 'bar',
@@ -1714,7 +1732,9 @@ export class HomeComponent implements AfterViewInit {
               { label: 'Stryker', data: strykerData, backgroundColor: '#824aa1', borderWidth: 1 },
               { label: 'Zimmer Biomet', data: zimmerBiometData, backgroundColor: '#c21b1b', borderWidth: 1 },
               { label: 'Exactech', data: exactechData, backgroundColor: '#ffc7bf', borderWidth: 1 },
-              { label: 'Lima', data: limaData, backgroundColor: '#f5f384', borderWidth: 1 }
+              { label: 'Lima', data: limaData, backgroundColor: '#f5f384', borderWidth: 1 },
+              { label: 'Fx Solution', data: fxSolution, backgroundColor: '#ef5350', borderWidth: 1 },
+              { label: 'Enovis DJO', data: enovisDJO, backgroundColor: '#26c6da', borderWidth: 1 }
             ]
           },
           options: {
@@ -1761,7 +1781,7 @@ export class HomeComponent implements AfterViewInit {
               },
               title: {
                 display: true,
-                text: 'Revision Rate of Prosthesis Companies: Fx solution and Enovis (DJO) by Indication',
+                text: 'Revision Rate of Prosthesis Company by Indication',
                 color: '#fff'
               },
             },
