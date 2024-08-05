@@ -13,6 +13,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ImportComponent } from './components/import/import.component';
 import { ViewComponent } from './components/view/view.component';
 import { ContactusComponent } from './components/contactus/contactus.component';
+import { DataComponent } from './components/data/data.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { ContactusComponent } from './components/contactus/contactus.component';
     DashboardComponent,
     ImportComponent,
     ViewComponent,
-    ContactusComponent
+    ContactusComponent,
+    DataComponent
   ],
   imports: [
     CommonModule,

@@ -6,10 +6,12 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TokenInterceptor } from './interceptors/token.interceptor';
+// import { TestComponent } from './test/test.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    // TestComponent,
   ],
   imports: [
     BrowserModule,

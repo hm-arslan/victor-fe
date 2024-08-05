@@ -5,6 +5,7 @@ import { AboutComponent } from './components/about/about.component';
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HomeComponent } from './components/home/home.component';
+import { DataComponent } from './components/data/data.component';
 import { ImportComponent } from './components/import/import.component';
 import { ViewComponent } from './components/view/view.component';
 import { authGuard } from 'src/app/guards/auth.guard';
@@ -15,6 +16,7 @@ const routes: Routes = [
     path: '', component: LandingPageComponent,
     children: [
       { path: 'home', component: HomeComponent },
+      { path: 'data', component: DataComponent },
       { path: 'dashboard', component: DashboardComponent, 
         canActivate: [authGuard]
       },
